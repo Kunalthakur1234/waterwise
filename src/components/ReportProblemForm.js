@@ -5,7 +5,7 @@ import "./ReportProblemForm.css";
 function ReportProblemForm({ onClose }) {
   const [problemType, setProblemType] = useState("");
   const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState(null); // kept for future
+  const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -20,18 +20,18 @@ function ReportProblemForm({ onClose }) {
     try {
       setLoading(true);
 
+      // IMPORTANT: Use FormData for file upload
+      const formData = new FormData();
+      formData.append("problemType", problemType);
+      formData.append("description", description);
+      formData.append("location", location);
+      if (photo) {
+        formData.append("photo", photo); // name "photo" must match upload.single("photo")
+      }
+
       const res = await fetch("http://localhost:5000/api/report-problem", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          problemType,
-          description,
-          location,
-          photo: null, // not handling file upload yet
-          // userId: ... // later when you want to link to logged-in user
-        }),
+        body: formData, // DO NOT set Content-Type manually
       });
 
       const data = await res.json();
@@ -43,7 +43,6 @@ function ReportProblemForm({ onClose }) {
 
       alert("Problem submitted successfully!");
 
-      // reset form
       setProblemType("");
       setDescription("");
       setPhoto(null);
@@ -83,11 +82,12 @@ function ReportProblemForm({ onClose }) {
           required
         />
 
-        <label>Upload Photo (not saved yet):</label>
+        <label>Upload Photo:</label>
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setPhoto(e.target.files[0])}
+          required
         />
 
         <label>Location:</label>
