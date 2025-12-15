@@ -1,22 +1,36 @@
 // src/components/Login.js
 import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import "./Login.css"; // Import your updated CSS file
+import "./Login.css";
 
 function Login({ onLogIn, onShowSignUp }) {
   const [emailOrPhoneLogin, setEmailOrPhoneLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  /* =======================
+     GOOGLE LOGIN HANDLER
+     ======================= */
   const handleGoogleLoginSuccess = (credentialResponse) => {
     console.log("Google login success:", credentialResponse);
-    // TODO: send credentialResponse.credential to backend for Google auth
+
+    // 👉 Google gives us a JWT token
+    const googleToken = credentialResponse.credential;
+
+    // (optional) save token
+    localStorage.setItem("googleToken", googleToken);
+
+    // 👉 Redirect to main page
+    onLogIn("google-user", "google-auth");
   };
 
   const handleGoogleLoginError = () => {
-    alert("Google login failed.");
+    alert("Google login failed. Please try again.");
   };
 
+  /* =======================
+     NORMAL LOGIN
+     ======================= */
   const handleLogin = async () => {
     if (!emailOrPhoneLogin || !password) {
       alert("Enter email/phone and password");
@@ -45,11 +59,6 @@ function Login({ onLogIn, onShowSignUp }) {
       }
 
       alert("Login successful!");
-
-      // Optional: store token for authenticated requests later
-      // localStorage.setItem("token", data.token);
-
-      // Call parent handler so App.js can change page to "main"
       onLogIn(emailOrPhoneLogin, password);
     } catch (err) {
       console.error(err);
@@ -91,6 +100,7 @@ function Login({ onLogIn, onShowSignUp }) {
           </button>
         </p>
 
+        {/* GOOGLE LOGIN */}
         <div className="social-login-container">
           <GoogleLogin
             onSuccess={handleGoogleLoginSuccess}
