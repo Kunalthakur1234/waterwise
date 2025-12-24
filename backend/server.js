@@ -14,7 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3002", "https://waterwise-app.netlify.app/"],
+    origin: [
+      "http://localhost:3000",
+      "https://waterwise-app.netlify.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
