@@ -1,12 +1,31 @@
+/* =========================
+   PAGE BACKGROUND
+   ========================= */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: url("C:\Users\91628\Downloads\Water-wise\waterwise\src\assets\background-shape.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+}
+
+/* =========================
+   FORM CONTAINER
+   ========================= */
 .report-form-container {
   max-width: 400px;
   margin: 40px auto;
   padding: 24px 30px;
   background: #f9f9fb;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
 }
 
+/* =========================
+   TITLE
+   ========================= */
 .report-form-container h2 {
   text-align: center;
   margin-bottom: 24px;
@@ -14,6 +33,9 @@
   font-size: 1.6em;
 }
 
+/* =========================
+   LABELS
+   ========================= */
 .report-form-container label {
   display: block;
   margin-top: 16px;
@@ -21,6 +43,9 @@
   font-weight: 500;
 }
 
+/* =========================
+   INPUTS
+   ========================= */
 .report-form-container select,
 .report-form-container textarea,
 .report-form-container input[type="text"],
@@ -33,6 +58,9 @@
   font-size: 1em;
 }
 
+/* =========================
+   BUTTONS
+   ========================= */
 .report-form-container button {
   margin-top: 12px;
   margin-right: 8px;
@@ -59,10 +87,12 @@
   background: #888;
 }
 
-/* Responsive adjustments */
+/* =========================
+   RESPONSIVE
+   ========================= */
 @media (max-width: 500px) {
   .report-form-container {
-    padding: 12px 5px;
-    max-width: 98vw;
+    padding: 12px 10px;
+    max-width: 95vw;
   }
 }

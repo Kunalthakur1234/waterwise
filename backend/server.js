@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // React dev server
+    origin: ["http://localhost:3000", "http://localhost:3002"],
     credentials: true,
   })
 );
@@ -164,10 +164,11 @@ app.post(
         location: location || "",
         reportedBy: userId || null,
       });
-
-      return res
-        .status(201)
-        .json({ message: "Problem submitted successfully", problem });
+return res.status(200).json({
+  success: true,
+  message: "Problem submitted successfully",
+  problem,
+});
     } catch (err) {
       console.error("Report problem error:", err);
       return res.status(500).json({ message: "Server error" });
