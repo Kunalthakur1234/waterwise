@@ -1,4 +1,2 @@
-const API =
-  process.env.REACT_APP_API_URL || "http://localhost:5000";
-
+const API = "https://waterwise-backend-owhk.onrender.com";
 export default API;
